@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Test de necesidades caninas Custom Diet — descubre el plan de rotación de pienso ideal para tu perro."
+    />
+    <title>Test de necesidades caninas | Custom Diet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#quiz-main">Saltar al test</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="https://customdiet.es/" class="brand" target="_blank" rel="noopener">
+          <img
+            src="https://customdiet.es/wp-content/uploads/2025/07/logo-custom-diet.webp"
+            alt="Custom Diet — Nutrición superior"
+            class="brand-logo"
+            width="170"
+            height="73"
+          />
+        </a>
+        <a href="https://customdiet.es/shop/" class="header-link" target="_blank" rel="noopener">
+          Comprar ahora
+        </a>
+      </div>
+    </header>
+
+    <main id="quiz-main" class="quiz-app">
+      <!-- Intro -->
+      <section class="quiz-screen is-active" data-screen="intro" aria-labelledby="intro-title">
+        <div class="container narrow">
+          <p class="eyebrow">Natural, funcional y probiótica</p>
+          <h1 id="intro-title" class="display-title">
+            Encuentra el plan de pienso ideal para tu perro
+          </h1>
+          <p class="lead">
+            Nutrición superior con ingredientes de grado humano. Responde unas preguntas y te
+            propondremos un <strong>plan de rotación de 2–3 recetas</strong> — sin transición lenta
+            entre sabores.
+          </p>
+
+          <ul class="intro-benefits" role="list">
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              Ingredientes 100% naturales de grado humano
+            </li>
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              20 millones de probióticos/kg en toda la gama
+            </li>
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              Rotación de proteínas sin miedo al desajuste digestivo
+            </li>
+          </ul>
+
+          <button type="button" class="btn btn-primary btn-lg" data-action="start">
+            Empezar el test
+            <span aria-hidden="true">→</span>
+          </button>
+          <p class="fine-print">2 minutos · Solo gama perro · No sustituye consejo veterinario</p>
+        </div>
+      </section>
+
+      <!-- Questions -->
+      <section class="quiz-screen" data-screen="questions" aria-labelledby="step-title" hidden>
+        <div class="container narrow">
+          <div class="progress-wrap" aria-hidden="true">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <span class="progress-label" id="progress-label">Paso 1 de 6</span>
+          </div>
+
+          <form id="quiz-form" novalidate>
+            <!-- Step 0: Name -->
+            <fieldset class="quiz-step is-active" data-step-id="name">
+              <legend class="step-legend" id="step-title">¿Cómo se llama tu perro?</legend>
+              <p class="step-hint">Opcional — lo usamos para personalizar el resultado.</p>
+              <label class="field-label" for="dog-name">Nombre</label>
+              <input
+                type="text"
+                id="dog-name"
+                name="dogName"
+                class="text-input"
+                placeholder="Ej. Luna"
+                autocomplete="off"
+                maxlength="40"
+              />
+            </fieldset>
+
+            <!-- Step 1: Age -->
+            <fieldset class="quiz-step" data-step-id="age">
+              <legend class="step-legend">¿En qué etapa de vida está?</legend>
+              <div class="option-grid" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="age" value="puppy" required />
+                  <span class="option-content">
+                    <strong>Cachorro</strong>
+                    <small>Menos de 12 meses</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="age" value="adult" />
+                  <span class="option-content">
+                    <strong>Adulto</strong>
+                    <small>Entre 1 y 7 años aprox.</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="age" value="senior" />
+                  <span class="option-content">
+                    <strong>Senior</strong>
+                    <small>Más de 7 años</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Step 2: Health (prioridad: acota opciones pronto) -->
+            <fieldset class="quiz-step" data-step-id="health">
+              <legend class="step-legend">¿Alguna condición de salud relevante?</legend>
+              <p class="step-hint">Puedes marcar varias. Si no aplica ninguna, elige «Ninguna».</p>
+
+              <div class="checkbox-list" role="group" aria-labelledby="conditions-label">
+                <span id="conditions-label" class="visually-hidden">Condiciones de salud</span>
+
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="none" data-exclusive />
+                  <span>Ninguna — está sano/a</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="allergy" />
+                  <span>Alergia o intolerancia alimentaria</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="digestive_mild" />
+                  <span>Digestión sensible (diarreas ocasionales, gases)</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="digestive_diagnosed" />
+                  <span>Problema digestivo diagnosticado por veterinario</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="obesity_mild" />
+                  <span>Sobrepeso sin diagnóstico veterinario</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="obesity_diagnosed" />
+                  <span>Obesidad diagnosticada por veterinario</span>
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="conditions" value="skin_coat" />
+                  <span>Piel seca o pelo apagado</span>
+                </label>
+              </div>
+
+              <div id="allergy-panel" class="sub-panel" hidden>
+                <p class="field-group-label">¿A qué proteína es alérgico o intolerante?</p>
+                <div class="checkbox-list checkbox-list--inline" id="allergy-options"></div>
+              </div>
+            </fieldset>
+
+            <!-- Step 3: Size -->
+            <fieldset class="quiz-step" data-step-id="size">
+              <legend class="step-legend">¿Qué tamaño tiene?</legend>
+              <div class="option-grid" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="size" value="mini" required />
+                  <span class="option-content">
+                    <strong>Mini / pequeño</strong>
+                    <small>Menos de 10 kg adulto</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="size" value="medium" />
+                  <span class="option-content">
+                    <strong>Mediano</strong>
+                    <small>10 – 25 kg aprox.</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="size" value="large" />
+                  <span class="option-content">
+                    <strong>Grande / gigante</strong>
+                    <small>Más de 25 kg</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Step 4: Activity -->
+            <fieldset class="quiz-step" data-step-id="activity">
+              <legend class="step-legend">¿Cuál es su nivel de actividad diaria?</legend>
+              <div class="option-grid" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="activity" value="low" required />
+                  <span class="option-content">
+                    <strong>Baja</strong>
+                    <small>Poco paseo, sedentario en casa</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="activity" value="medium" />
+                  <span class="option-content">
+                    <strong>Media</strong>
+                    <small>Paseos regulares, juego moderado</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="activity" value="high" />
+                  <span class="option-content">
+                    <strong>Alta</strong>
+                    <small>Deportivo, muy activo o trabajo</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Step 5: Body + neutered -->
+            <fieldset class="quiz-step" data-step-id="body">
+              <legend class="step-legend">Estado físico y castración</legend>
+
+              <p class="field-group-label">Condición corporal</p>
+              <div class="option-grid option-grid--compact" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="bodyCondition" value="normal" required />
+                  <span class="option-content"><strong>Normopeso</strong></span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="bodyCondition" value="overweight" />
+                  <span class="option-content"><strong>Sobrepeso leve</strong></span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="bodyCondition" value="underweight" />
+                  <span class="option-content"><strong>Bajo peso</strong></span>
+                </label>
+              </div>
+
+              <p class="field-group-label">¿Está castrado o esterilizado?</p>
+              <div class="option-grid option-grid--compact" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="neutered" value="yes" required />
+                  <span class="option-content"><strong>Sí</strong></span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="neutered" value="no" />
+                  <span class="option-content"><strong>No</strong></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="flow-context" id="flow-context" hidden></p>
+
+            <div class="quiz-nav">
+              <button
+                type="button"
+                class="btn btn-ghost quiz-nav-back"
+                data-action="prev"
+                hidden
+              >
+                <span aria-hidden="true">←</span>
+                Atrás
+              </button>
+              <div class="quiz-nav-forward">
+                <button type="button" class="btn btn-primary" data-action="next" hidden>
+                  Siguiente
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg" data-action="submit" hidden>
+                  Ver mi recomendación
+                </button>
+              </div>
+            </div>
+
+            <p class="error-message" id="step-error" role="alert" hidden></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="quiz-screen" data-screen="results" aria-labelledby="results-title" hidden>
+        <div class="container">
+          <div class="results-header narrow">
+            <p class="eyebrow">Tu plan personalizado</p>
+            <h2 id="results-title" class="display-title">Plan de rotación para <span id="result-dog-name">tu perro</span></h2>
+            <p class="lead" id="result-summary"></p>
+            <p class="result-label" id="result-rotation-label"></p>
+          </div>
+
+          <div class="product-cards" id="product-cards"></div>
+
+          <section class="product-cards-extra" id="product-cards-extra" hidden>
+            <h3 class="product-cards-extra-title">También compatibles para rotar</h3>
+            <div class="product-cards" id="product-cards-additional"></div>
+          </section>
+
+          <aside class="result-aside narrow">
+            <div class="highlight-box" id="result-highlight"></div>
+
+            <div id="result-alerts" class="alert-stack" hidden></div>
+            <div id="result-notes" class="notes-stack" hidden></div>
+
+            <div class="result-actions">
+              <a
+                href="https://customdiet.es/product-category/custom-diet/"
+                class="btn btn-primary btn-lg"
+                target="_blank"
+                rel="noopener"
+                id="shop-link"
+              >
+                Comprar en customdiet.es
+              </a>
+              <button type="button" class="btn btn-ghost" data-action="edit">
+                <span aria-hidden="true">←</span>
+                Atrás — modificar respuestas
+              </button>
+              <button type="button" class="btn btn-ghost" data-action="restart">
+                Repetir test
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          © Custom Diet · Distribuciones Proanimal S.L.
+          · <a href="https://customdiet.es/" target="_blank" rel="noopener">customdiet.es</a>
+        </p>
+        <p class="fine-print">
+          Este test orienta sobre nuestra gama perro. No sustituye el diagnóstico ni la prescripción veterinaria.
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="js/quiz.js"></script>
+  </body>
+</html>
