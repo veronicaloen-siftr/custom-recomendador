@@ -128,7 +128,27 @@ function showScreen(name) {
   });
   screens[name].classList.add('is-active');
   screens[name].hidden = false;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  scrollToActiveContent(name);
+}
+
+function scrollToActiveContent(screenName = 'questions') {
+  const header = document.querySelector('.site-header');
+  const headerOffset = (header?.offsetHeight ?? 0) + 12;
+  let target = null;
+
+  if (screenName === 'questions') {
+    target = document.querySelector('.progress-wrap') || document.getElementById('step-title');
+  } else {
+    target = screens[screenName]?.querySelector('.display-title, h2');
+  }
+
+  if (!target) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
+  window.scrollTo({ top, behavior: 'smooth' });
 }
 
 function getPartialAnswers() {
@@ -178,6 +198,7 @@ function goRelative(delta) {
   syncStepPanels();
   updateStepUI();
   focusCurrentStep();
+  if (delta !== 0) scrollToActiveContent('questions');
 }
 
 function updateStepUI() {
@@ -235,6 +256,7 @@ function backToQuestions() {
   syncStepPanels();
   updateStepUI();
   focusCurrentStep();
+  scrollToActiveContent('questions');
 }
 
 function isStepComplete(stepId) {
@@ -354,6 +376,7 @@ function clearFieldsForSteps(stepIds) {
 function showError(message) {
   stepError.textContent = message;
   stepError.hidden = false;
+  stepError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   return false;
 }
 

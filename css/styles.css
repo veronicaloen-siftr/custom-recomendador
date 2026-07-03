@@ -50,6 +50,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -68,12 +70,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   line-height: 1.6;
   color: var(--cd-text);
   background: var(--cd-bg);
+  overflow-x: clip;
 }
 
 img {
@@ -93,11 +97,13 @@ a:hover {
 .container {
   width: min(100% - 2rem, 72rem);
   margin-inline: auto;
+  padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
 }
 
 .narrow {
   width: min(100% - 2rem, 40rem);
   margin-inline: auto;
+  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
 }
 
 .visually-hidden {
@@ -132,6 +138,7 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
   background: var(--cd-surface);
   border-bottom: 1px solid var(--cd-border);
   box-shadow: 0 1px 3px rgb(0 0 0 / 4%);
@@ -168,6 +175,10 @@ a:hover {
   background: var(--cd-primary);
   border-radius: var(--radius-sm);
   transition: background var(--duration-fast) var(--ease-out);
+}
+
+.header-link-short {
+  display: none;
 }
 
 .header-link:hover,
@@ -285,7 +296,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 1.35rem;
   font-family: var(--font-display);
   font-size: 15px;
@@ -296,6 +307,9 @@ a:hover {
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
   transition:
     background var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out),
@@ -325,6 +339,10 @@ a:hover {
   min-height: 48px;
   padding-inline: 1.75rem;
   font-size: 16px;
+}
+
+.btn-block {
+  width: 100%;
 }
 
 .btn-ghost {
@@ -447,12 +465,16 @@ a:hover {
 .option-card {
   position: relative;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .option-card input {
   position: absolute;
   opacity: 0;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   cursor: pointer;
 }
 
@@ -460,14 +482,15 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  min-height: 4.5rem;
+  min-height: 3.5rem;
   padding: var(--space-4) var(--space-5);
   border: 1px solid var(--cd-border);
   border-radius: var(--radius-md);
   background: var(--cd-surface);
   transition:
     border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+    box-shadow var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .option-content strong {
@@ -498,6 +521,10 @@ a:hover {
   background: rgb(193 171 146 / 8%);
 }
 
+.option-card:active .option-content {
+  transform: scale(0.99);
+}
+
 /* Checkboxes */
 .checkbox-list {
   display: grid;
@@ -519,7 +546,15 @@ a:hover {
   background: var(--cd-surface);
   color: var(--cd-text-strong);
   cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease-out);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.checkbox-card:active {
+  transform: scale(0.99);
 }
 
 .checkbox-card:has(input:checked) {
@@ -528,8 +563,9 @@ a:hover {
 }
 
 .checkbox-card input {
-  width: 1.125rem;
-  height: 1.125rem;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
   accent-color: var(--cd-primary);
 }
 
@@ -801,4 +837,212 @@ a:hover {
   color: var(--cd-text-strong);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* ——— Mobile ——— */
+@media (max-width: 639px) {
+  .container {
+    width: 100%;
+    padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+  }
+
+  .narrow {
+    width: 100%;
+    padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+  }
+
+  .header-inner {
+    min-height: 3.75rem;
+    gap: var(--space-2);
+  }
+
+  .brand-logo {
+    max-height: 40px;
+  }
+
+  .header-link {
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    font-size: 14px;
+  }
+
+  .header-link-full {
+    display: none;
+  }
+
+  .header-link-short {
+    display: inline;
+  }
+
+  .quiz-app {
+    padding-block: var(--space-6) var(--space-10);
+    min-height: calc(100dvh - 4rem);
+  }
+
+  .display-title {
+    font-size: clamp(1.5rem, 7vw, 1.875rem);
+    line-height: 1.2;
+  }
+
+  .lead {
+    margin-bottom: var(--space-6);
+    max-width: none;
+  }
+
+  .intro-benefits li {
+    padding: var(--space-3) var(--space-4);
+    font-size: 15px;
+  }
+
+  [data-screen='intro'] .btn-primary {
+    width: 100%;
+  }
+
+  .progress-wrap {
+    position: sticky;
+    top: calc(3.75rem + env(safe-area-inset-top, 0px));
+    z-index: 20;
+    margin-bottom: var(--space-6);
+    padding-block: var(--space-3);
+    background: rgb(239 233 226 / 92%);
+    backdrop-filter: blur(6px);
+  }
+
+  .step-legend {
+    font-size: 1.25rem;
+  }
+
+  .step-hint {
+    margin-bottom: var(--space-4);
+    font-size: 15px;
+  }
+
+  .option-content {
+    min-height: 3.75rem;
+    padding: var(--space-4);
+  }
+
+  .option-content strong {
+    font-size: 16px;
+  }
+
+  .option-content small {
+    font-size: 14px;
+  }
+
+  .checkbox-list--inline {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-card {
+    min-height: 3rem;
+    padding: var(--space-4);
+    font-size: 15px;
+  }
+
+  .sub-panel {
+    padding: var(--space-4);
+  }
+
+  .flow-context {
+    font-size: 15px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .error-message {
+    margin-bottom: var(--space-2);
+  }
+
+  #quiz-form {
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .quiz-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: stretch;
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-3) max(1rem, env(safe-area-inset-left))
+      calc(var(--space-3) + env(safe-area-inset-bottom, 0px))
+      max(1rem, env(safe-area-inset-right));
+    background: rgb(239 233 226 / 96%);
+    border-top: 1px solid var(--cd-border);
+    box-shadow: 0 -6px 24px rgb(0 0 0 / 8%);
+    backdrop-filter: blur(10px);
+  }
+
+  .quiz-nav:not(:has(.quiz-nav-back:not([hidden]))) {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-nav-back,
+  .quiz-nav-forward .btn {
+    min-height: 48px;
+    width: 100%;
+  }
+
+  .quiz-nav-forward {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .quiz-nav-forward .btn-lg {
+    min-height: 52px;
+  }
+
+  .results-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .product-card {
+    padding: var(--space-5);
+  }
+
+  .product-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .product-badge--role {
+    align-self: flex-start;
+  }
+
+  .product-link {
+    align-self: stretch;
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .highlight-box {
+    padding: var(--space-4);
+    font-size: 15px;
+  }
+
+  .alert-item,
+  .note-item {
+    font-size: 15px;
+  }
+
+  .site-footer {
+    padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
+  }
 }
