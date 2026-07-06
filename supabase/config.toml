@@ -1,0 +1,11 @@
+# https://supabase.com/docs/guides/cli/config
+project_id = "ldvfkfesvhcdajyuvcil"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15
+
+[functions.encuesta-webhook]
+verify_jwt = false

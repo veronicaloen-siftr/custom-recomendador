@@ -11,10 +11,10 @@
     <title>Encuesta de recaptación | Custom Diet</title>
   <!--
     Enlace desde el email de recaptacion (ActiveCampaign):
-    https://customdiet.es/encuesta-recaptacion.html?nombre=%FIRSTNAME%&email=%EMAIL%&perro=%DOG_NAME%
+    https://customdiet.es/encuesta-recaptacion.html?nombre=%FIRSTNAME%&email=%EMAIL%
 
-    Para guardar respuestas en webhook (Zapier, Make, Google Sheets, etc.):
-    ?webhook=https://hooks.zapier.com/...
+    Las respuestas se guardan en Supabase (Edge Function encuesta-webhook).
+    Configura la URL en js/survey-config.js tras desplegar supabase/functions.
   -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -1,3 +1,5 @@
+import { SURVEY_WEBHOOK_URL } from './survey-config.js';
+
 const form = document.getElementById('survey-form');
 const errorEl = document.getElementById('survey-error');
 const greetingEl = document.getElementById('greeting');
@@ -91,19 +93,26 @@ function onSubmit(e) {
 
 async function submitPayload(payload) {
   const params = new URLSearchParams(window.location.search);
-  const webhook = params.get('webhook');
+  const webhook = params.get('webhook') || SURVEY_WEBHOOK_URL;
 
-  if (webhook) {
-    try {
-      await fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors',
-      });
-    } catch {
-      // no-cors no devuelve respuesta; seguimos a gracias
+  if (!webhook) {
+    console.warn('Encuesta: configura SURVEY_WEBHOOK_URL en js/survey-config.js');
+    showThanks();
+    return;
+  }
+
+  try {
+    const response = await fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.warn('Encuesta: el webhook respondio con error', response.status);
     }
+  } catch (error) {
+    console.warn('Encuesta: no se pudo enviar al webhook', error);
   }
 
   showThanks();
