@@ -24,6 +24,10 @@ const ADULT_STANDARD = [
 
 const ALL_PRODUCT_IDS = Object.keys(PRODUCTS);
 
+export function normalizeConditions(raw = []) {
+  return raw.filter((c) => c !== 'none');
+}
+
 /**
  * @param {import('./recommendation-engine.js').QuizAnswers} answers
  */
@@ -68,10 +72,7 @@ function filterExcluded(excluded, candidates) {
  * @param {Partial<import('./recommendation-engine.js').QuizAnswers>} answers
  */
 export function getEligibleProductIds(answers) {
-  const rawConditions = answers.conditions || [];
-  const conditions = rawConditions.includes('none')
-    ? []
-    : rawConditions.filter((c) => c !== 'none');
+  const conditions = normalizeConditions(answers.conditions || []);
   const { excluded } = applyAllergyFilters({ ...answers, conditions });
 
   if (conditions.includes('digestive_diagnosed')) {
@@ -165,24 +166,19 @@ export const STEP = {
 };
 
 export function isNormalProfile(answers) {
-  const raw = answers.conditions || [];
-  const conditions = raw.includes('none') ? [] : raw.filter((c) => c !== 'none');
-  return conditions.length === 0;
-}
-
-function normalizeConditions(answers) {
-  const raw = answers.conditions || [];
-  return raw.includes('none') ? [] : raw.filter((c) => c !== 'none');
+  return normalizeConditions(answers.conditions || []).length === 0;
 }
 
 export function isHealthComplete(answers) {
-  const conditions = answers.conditions || [];
-  if (conditions.length === 0) return false;
-  if (conditions.includes('none')) return true;
+  const raw = answers.conditions || [];
+  if (raw.length === 0) return false;
+  if (raw.includes('none') && normalizeConditions(raw).length === 0) return true;
+
+  const conditions = normalizeConditions(raw);
   if (conditions.includes('allergy')) {
     return (answers.allergies || []).length > 0;
   }
-  return true;
+  return conditions.length > 0;
 }
 
 /**
@@ -236,6 +232,15 @@ export function getFlowContext(answers) {
   }
 
   if (locked && reason) return reason;
+
+  const conditions = normalizeConditions(answers.conditions || []);
+
+  if (
+    answers.bodyCondition === 'overweight' &&
+    !conditions.includes('obesity_diagnosed')
+  ) {
+    return 'Sobrepeso leve: priorizamos recetas ligeras (Salmon, Turkey, Tuna). Si tu veterinario ha diagnosticado obesidad, vuelve atrás y marca «Obesidad diagnosticada → línea Obesity (Custom Vet)».';
+  }
 
   if (isNormalProfile(answers) && answers.age !== 'puppy') {
     return 'Perfil sano: toda la gama adulto es compatible para rotar. Ajustamos el plan según tamaño, actividad y peso.';

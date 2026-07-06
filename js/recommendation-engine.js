@@ -1,5 +1,5 @@
 import { PRODUCTS } from './products.js';
-import { getEligibleProductIds } from './quiz-flow.js';
+import { getEligibleProductIds, normalizeConditions } from './quiz-flow.js';
 
 const CHICKEN_PRODUCTS = new Set([
   'angus-beef',
@@ -194,6 +194,12 @@ function applyAllergyFilters(answers) {
  * @returns {import('./recommendation-engine.js').RecommendationResult}
  */
 export function getRecommendation(answers) {
+  const normalizedAnswers = {
+    ...answers,
+    conditions: normalizeConditions(answers.conditions || []),
+  };
+  answers = normalizedAnswers;
+
   const alerts = [];
   const notes = [];
   let primaryIds = [];

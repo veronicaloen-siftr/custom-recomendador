@@ -7,6 +7,7 @@ import {
   getFlowContext,
   getDefaultsForSkippedSteps,
   isHealthComplete,
+  normalizeConditions,
 } from './quiz-flow.js';
 
 const screens = {
@@ -102,6 +103,18 @@ function handleConditionsChange() {
   const noneInput = conditionInputs.find((i) => i.value === 'none');
   const allergyInput = conditionInputs.find((i) => i.value === 'allergy');
   const checked = conditionInputs.filter((i) => i.checked);
+
+  const exclusivePairs = [
+    ['obesity_mild', 'obesity_diagnosed'],
+    ['digestive_mild', 'digestive_diagnosed'],
+  ];
+
+  for (const [mild, diagnosed] of exclusivePairs) {
+    const mildInput = conditionInputs.find((i) => i.value === mild);
+    const diagnosedInput = conditionInputs.find((i) => i.value === diagnosed);
+    if (diagnosedInput?.checked) mildInput.checked = false;
+    else if (mildInput?.checked) diagnosedInput.checked = false;
+  }
 
   if (noneInput?.checked && checked.length > 1) {
     conditionInputs.forEach((i) => {
@@ -390,10 +403,6 @@ function collectAnswers() {
   stepQueue = buildStepQueue(partial);
   const defaults = getDefaultsForSkippedSteps(partial, stepQueue);
 
-  const conditions = partial.conditions.includes('none')
-    ? []
-    : partial.conditions.filter((c) => c !== 'none');
-
   return {
     dogName: partial.dogName,
     age: partial.age || 'adult',
@@ -401,7 +410,7 @@ function collectAnswers() {
     activity: partial.activity || defaults.activity,
     bodyCondition: partial.bodyCondition || defaults.bodyCondition,
     neutered: partial.neutered ?? defaults.neutered,
-    conditions,
+    conditions: normalizeConditions(partial.conditions || []),
     allergies: partial.allergies,
   };
 }

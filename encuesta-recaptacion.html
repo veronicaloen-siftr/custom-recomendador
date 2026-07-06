@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#efe9e2" />
+    <meta
+      name="description"
+      content="Cuéntanos por qué dejaste de comprar en Custom Diet — encuesta de 30 segundos."
+    />
+    <title>Encuesta de recaptación | Custom Diet</title>
+  <!--
+    Enlace desde el email de recaptacion (ActiveCampaign):
+    https://customdiet.es/encuesta-recaptacion.html?nombre=%FIRSTNAME%&email=%EMAIL%&perro=%DOG_NAME%
+
+    Para guardar respuestas en webhook (Zapier, Make, Google Sheets, etc.):
+    ?webhook=https://hooks.zapier.com/...
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/encuesta.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="https://customdiet.es/" class="brand" target="_blank" rel="noopener">
+          <img
+            src="https://customdiet.es/wp-content/uploads/2025/07/logo-custom-diet.webp"
+            alt="Custom Diet"
+            class="brand-logo"
+            width="170"
+            height="73"
+          />
+        </a>
+      </div>
+    </header>
+
+    <main class="survey-app" id="survey-main">
+      <section class="survey-screen is-active" data-screen="form" aria-labelledby="survey-title">
+        <div class="container narrow">
+          <p class="eyebrow">Tu opini&oacute;n nos importa</p>
+          <h1 id="survey-title" class="display-title">
+            <span id="greeting">Hola</span>, &iquest;nos ayudas con 30 segundos?
+          </h1>
+          <p class="lead" id="survey-lead">
+            Queremos entender qu&eacute; ha pasado para mejorar. No es un interrogatorio:
+            solo unas preguntas r&aacute;pidas y sinceras.
+          </p>
+
+          <form id="survey-form" class="survey-form" novalidate>
+            <input type="hidden" name="email" id="field-email" />
+
+            <fieldset class="survey-block">
+              <legend class="survey-legend">&iquest;Cu&aacute;l fue el motivo principal?</legend>
+              <p class="step-hint">Elige la opci&oacute;n que m&aacute;s se acerque a tu caso.</p>
+              <div class="option-grid survey-options" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="reason" value="precio" required />
+                  <span class="option-content">
+                    <strong>Precio</strong>
+                    <small>Me resulta caro para mi presupuesto actual</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="otra_marca" />
+                  <span class="option-content">
+                    <strong>Otra marca</strong>
+                    <small>Encontr&eacute; otra opci&oacute;n que me convence m&aacute;s</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="digestion" />
+                  <span class="option-content">
+                    <strong>Digesti&oacute;n o tolerancia</strong>
+                    <small>Mi perro no lo llevo bien</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="envio" />
+                  <span class="option-content">
+                    <strong>Env&iacute;o o disponibilidad</strong>
+                    <small>Problemas al pedir o falta de stock</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="tienda_fisica" />
+                  <span class="option-content">
+                    <strong>Compro en tienda</strong>
+                    <small>Prefiero comprar en persona</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="pausa" />
+                  <span class="option-content">
+                    <strong>Solo una pausa</strong>
+                    <small>Todav&iacute;a tengo saco o volver&eacute; m&aacute;s adelante</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="situacion" />
+                  <span class="option-content">
+                    <strong>Cambio de situaci&oacute;n</strong>
+                    <small>Ya no tengo perro u otra circunstancia</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="reason" value="otro" />
+                  <span class="option-content">
+                    <strong>Otro motivo</strong>
+                    <small>Lo cuento abajo en comentarios</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="survey-block">
+              <legend class="survey-legend">&iquest;Qu&eacute; tendr&iacute;amos que mejorar para que volvieras?</legend>
+              <p class="step-hint">Opcional — una frase nos ayuda mucho.</p>
+              <label class="visually-hidden" for="improvement">Comentario</label>
+              <textarea
+                id="improvement"
+                name="improvement"
+                class="survey-textarea"
+                rows="3"
+                maxlength="500"
+                placeholder="Ej. m&aacute;s formatos peque&ntilde;os, mejor precio en sacos grandes..."
+              ></textarea>
+            </fieldset>
+
+            <fieldset class="survey-block">
+              <legend class="survey-legend">&iquest;Te planteas volver a comprar?</legend>
+              <div class="option-grid option-grid--compact survey-options" role="radiogroup" aria-required="true">
+                <label class="option-card">
+                  <input type="radio" name="intent" value="si_pronto" required />
+                  <span class="option-content"><strong>Si, pronto</strong></span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="intent" value="quizas" />
+                  <span class="option-content"><strong>Quiz&aacute;s</strong></span>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="intent" value="no" />
+                  <span class="option-content"><strong>No por ahora</strong></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="error-message" id="survey-error" role="alert" hidden></p>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+              Enviar respuestas
+            </button>
+            <p class="fine-print survey-fine-print">
+              Tus respuestas son confidenciales y solo las usamos para mejorar.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <section class="survey-screen" data-screen="thanks" hidden aria-labelledby="thanks-title">
+        <div class="container narrow survey-thanks">
+          <p class="eyebrow">Gracias de coraz&oacute;n</p>
+          <h2 id="thanks-title" class="display-title">Tu opini&oacute;n ya nos ayuda</h2>
+          <p class="lead">
+            Para agradecerte, recuerda tu regalo de vuelta: al comprar un saco grande,
+            <strong>saco de 2 kg gratis</strong> con el c&oacute;digo:
+          </p>
+          <p class="survey-promo-code" aria-label="C&oacute;digo promocional">VUELVO</p>
+          <p class="fine-print">V&aacute;lido hasta el 31/07/2026. Sujeto a disponibilidad.</p>
+          <div class="survey-thanks-actions">
+            <a
+              href="https://customdiet.es/product-category/custom-diet/"
+              class="btn btn-primary btn-lg"
+              target="_blank"
+              rel="noopener"
+            >
+              Volver a la tienda
+            </a>
+            <a
+              href="https://www.instagram.com/customdiet_oficial/"
+              class="btn btn-ghost"
+              target="_blank"
+              rel="noopener"
+            >
+              Seguir a Kus en Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          &copy; Custom Diet ·
+          <a href="https://customdiet.es/" target="_blank" rel="noopener">customdiet.es</a>
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="js/encuesta-recaptacion.js"></script>
+  </body>
+</html>

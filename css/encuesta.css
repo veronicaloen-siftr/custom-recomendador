@@ -1,0 +1,95 @@
+.survey-app {
+  padding-block: var(--space-8) var(--space-12);
+  min-height: calc(100dvh - 5rem);
+}
+
+.survey-screen {
+  display: none;
+}
+
+.survey-screen.is-active {
+  display: block;
+  animation: fadeUp var(--duration-normal) var(--ease-out);
+}
+
+.survey-form {
+  margin-top: var(--space-6);
+}
+
+.survey-block {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-8);
+  min-width: 0;
+}
+
+.survey-legend {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--cd-title);
+}
+
+.survey-options .option-content {
+  min-height: 3.25rem;
+}
+
+.survey-textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: var(--space-4) var(--space-5);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--cd-text-strong);
+  border: 1px solid var(--cd-border);
+  border-radius: var(--radius-md);
+  background: var(--cd-surface);
+  resize: vertical;
+}
+
+.survey-textarea:focus {
+  outline: 2px solid var(--cd-primary);
+  outline-offset: 1px;
+  border-color: var(--cd-primary);
+}
+
+.survey-fine-print {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.survey-thanks {
+  text-align: center;
+}
+
+.survey-promo-code {
+  display: inline-block;
+  margin: var(--space-4) 0 var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cd-title);
+  background: var(--cd-surface);
+  border: 2px dashed var(--cd-primary);
+  border-radius: var(--radius-md);
+}
+
+.survey-thanks-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 639px) {
+  .survey-thanks-actions .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+}
